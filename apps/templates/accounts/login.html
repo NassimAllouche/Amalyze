@@ -1,74 +1,206 @@
-{% extends "layouts/base.html" %}
 
-{% block title %} Login {% endblock %} 
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Primary Meta Tags -->
 
-{% block content %}
+<link rel="canonical" href="https://appseed.us/product/volt-dashboard/django/">
+<meta name="google-site-verification" content="kCT200-J0rfczENRkJQdYCqsDKkUo3Hvr3KZic_otwU" />
 
-  <div class="row">
-    <div class="col-md-5">
-      <div class="card">
-        <div class="card-header card-header-primary">
-          <h4 class="card-title">
-            Login
-          </h4>
-        </div>
-        <div class="card-body">
+<title>
+     Sign IN  
+</title>
 
-          <h6 class="card-category">
-              {% if msg %}
-                <span class="text-danger">{{ msg | safe }}</span>
-              {% else %}
-                  Add your credentials
-              {% endif %}  
-          </h6>
-          
-          <br />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="title" content="Volt Free Bootstrap Dashboard - Sign up page">
+<meta name="author" content="Themesberg">
+<meta name="description" content="Volt Pro is a Premium Bootstrap 5 Admin Dashboard featuring over 800 components, 10+ plugins and 20 example pages using Vanilla JS.">
+<meta name="keywords" content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, themesberg, themesberg dashboard, themesberg admin dashboard" />
 
-          <form role="form" method="post" action="">
-              
-            {% csrf_token %} 
 
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="bmd-label-floating">Username</label>
-                  {{ form.username }}
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://demo.themesberg.com/volt-pro">
+<meta property="og:title" content="Volt Free Bootstrap Dashboard - Sign up page">
+<meta property="og:description" content="Volt Pro is a Premium Bootstrap 5 Admin Dashboard featuring over 800 components, 10+ plugins and 20 example pages using Vanilla JS.">
+<meta property="og:image" content="https://themesberg.s3.us-east-2.amazonaws.com/public/products/volt-pro-bootstrap-5-dashboard/volt-pro-preview.jpg">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://demo.themesberg.com/volt-pro">
+<meta property="twitter:title" content="Volt Free Bootstrap Dashboard - Sign up page">
+<meta property="twitter:description" content="Volt Pro is a Premium Bootstrap 5 Admin Dashboard featuring over 800 components, 10+ plugins and 20 example pages using Vanilla JS.">
+<meta property="twitter:image" content="https://themesberg.s3.us-east-2.amazonaws.com/public/products/volt-pro-bootstrap-5-dashboard/volt-pro-preview.jpg">
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="120x120" href="/static/assets/img/favico (2).png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/assets/img/favico (2).png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/assets/img/favico (2).png">
+<link rel="manifest" href="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/img/favicon/site.webmanifest">
+<link rel="mask-icon" href="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/img/favicon/safari-pinned-tab.svg" color="#ffffff">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
+<!-- FA Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" 
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Sweet Alert -->
+<link type="text/css" href="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+
+<!-- Notyf -->
+<link type="text/css" href="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/vendor/notyf/notyf.min.css" rel="stylesheet">
+
+<!-- Volt CSS -->
+<link type="text/css" href="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/css/volt.css" rel="stylesheet">
+
+<!-- Specific Page JS goes HERE  -->    
+
+
+</head>
+<body>
+
+    
+
+    <main>
+        <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
+            <div class="container">
+             
+                <div class="row justify-content-center form-bg-image" data-background-lg="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/img/illustrations/signin.svg">
+                    <div class="col-12 d-flex align-items-center justify-content-center">
+                        <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+                            <div class="text-center text-md-center mb-4 mt-md-0">
+                                <h1 class="mb-0 h3">
+                                    <img src="/static/assets/img/Picture1.png" style="width: 70%; padding: inherit">   
+                                </h1>
+                                <br />
+
+                                {% if msg %}
+                              
+                                  <div class="alert alert-info">
+                                    <span class="">{{ msg | safe }}</span>
+                                  </div>
+                            
+                              {% else %}
+                            
+                              {% endif %}
+                            </div>
+
+                            <form  role="form" method="post" action="" class="mt-4">
+                                
+                              {% csrf_token %} 
+                                <!-- Form -->
+                                <div class="form-group mb-4">
+                                    <label for="email">Username</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <span class="fas fa-user-circle"></span>
+                                        </span>
+                                        {{ form.username }}
+                                    </div>  
+                                </div>
+                                <!-- End of Form -->
+                                <div class="form-group">
+                                    <!-- Form -->
+                                    <div class="form-group mb-4">
+                                        <label for="password">Your Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="basic-addon2" >
+                                                <span class="fas fa-unlock-alt"></span>
+                                            </span>
+                                            {{ form.password }}                                        </div>  
+                                    </div>
+                                    <!-- End of Form -->
+                                    <div class="d-flex justify-content-between align-items-top mb-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="remember">
+                                            <label class="form-check-label mb-0" for="remember">
+                                              Remember me
+                                            </label>
+                                        </div>
+                                        <div><a href="/register/" class="text-right">Register</a></div>
+                                    </div>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" name="login" class="btn " style="background-color: orange; box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4); color: white;">Sign IN</button>
+                                </div>
+                            </form>
+
+                            <br />
+
+                            
+                            <div class="my-2 mb-2 text-center">
+                                <span class="fw-normal">or login with</span>
+                            </div>
+                            <div class="d-flex justify-content-center my-2">
+
+                                <form method="post" action="/social_login/github/login/?next=%2F"><input type="hidden" name="csrfmiddlewaretoken" value="ovqFDfzxRuzsB2fzA625BLlF6f90c7OJJWQLxO4gkLFFBOoCu9K9RJTDrcabdcr0">
+                                    <button class="btn btn-light">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                                          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                                        </svg>
+                                    </button>
+                                </form>
+
+                            </div>
+                            
+
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
+        </section>
+    </main>
 
-            <br />
 
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="bmd-label-floating">Password</label>
-                  {{ form.password }}
-                </div>
-              </div>
-            </div>
 
-            <br />
+    
+<!-- Core -->
+<script src="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/vendor/@popperjs/core/dist/umd/popper.min.js"></script>
+<script src="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 
-            <button type="submit" name="login" class="btn btn-primary pull-left">Login</button>
+<!-- Vendor JS -->
+<script src="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/vendor/onscreen/dist/on-screen.umd.min.js"></script>
 
-            &nbsp; &nbsp; 
-            <span class="pull-right">
-              Don't have an account? <a href="{% url 'register' %}" class="text-primary">Create</a>
-            </span>
+<!-- Slider -->
+<script src="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/vendor/nouislider/distribute/nouislider.min.js"></script>
 
-            <div class="clearfix"></div>
+<!-- Smooth scroll -->
+<script src="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
 
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- Charts -->
+<script src="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/vendor/chartist/dist/chartist.min.js"></script>
+<script src="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
 
-{% endblock content %}
+<!-- Datepicker -->
+<script src="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
 
-<!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+<!-- Sweet Alerts 2 -->
+<script src="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
+<!-- Moment JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+<!-- Vanilla JS Datepicker -->
+<script src="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
+
+<!-- Notyf -->
+<script src="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/vendor/notyf/notyf.min.js"></script>
+
+<!-- Simplebar -->
+<script src="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/vendor/simplebar/dist/simplebar.min.js"></script>
+
+<!-- Github buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<!-- Volt JS -->
+<script src="https://appsrv1-147a1.kxcdn.com/volt-dashboard-django-v1.0.8/js/volt.js"></script>
+
+
+    <!-- Specific Page JS goes HERE  -->
+      
+
+</body>
+</html>

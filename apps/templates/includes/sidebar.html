@@ -1,77 +1,73 @@
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="/static/assets/img/sidebar-1.jpg">
-      <div class="logo">
-        <a target="_blank" rel="noopener noreferrer" 
+    <div class="sidebar" data-color="orange" data-background-color="white" data-image="/static/assets/img/sidebar-3.jpg">
+      <div class="logo" style="padding: inherit;">
+     
+        <a  rel="noopener noreferrer" 
            href="https://appseed.us/admin-dashboards/django-dashboard-material" class="simple-text logo-normal">
-          Django Material
+           <img src="/static/assets/img/Picture1.png" style="width: 70%; padding: inherit">
         </a>
       </div>
       <div class="sidebar-wrapper">
-        <ul class="nav">
+        <ul class="nav ">
         {% if request.user.is_authenticated %}
 
-          <li class="nav-item {% if 'index' in segment %} active {% endif %}">
-            <a class="nav-link" href="/">
+          <li class="nav-item active  ">
+            <a class="nav-link "  href="#homeSubmenu1" data-toggle="collapse" aria-expanded="true" >
               <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
+              <div class="row">
+              <p>Dashboard</p> <span> <i class="material-icons" style="margin-left: 150%">expand_more</i> </span>
+            </div>
+              
             </a>
+            <ul class="  list-unstyled nav-link nav-second-level  " id="homeSubmenu1">
+              <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+                  <a  href="/index.html" class="nav-link"><i class="material-icons">analytics</i> Sales informations</a>
+              </li>
+              <li class="nav-item {% if 'discount-information' in segment %} active {% endif %}">
+                <a  href="/discount-information.html" class="nav-link"><i class="material-icons">show_chart</i> Discount information</a>
+            </li>
+            <li class="nav-item {% if 'customer-satisfaction' in segment %} active {% endif %}">
+              <a  href="/customer-satisfaction.html" class="nav-link"><i class="material-icons">tag_faces</i> Customer satisfaction</a>
           </li>
-          <li class="nav-item {% if 'page-user' in segment %} active {% endif %}">
-            <a class="nav-link" href="/page-user.html">
-              <i class="material-icons">person</i>
-              <p>User Profile</p>
+          <li class="nav-item {% if 'delivery-information' in segment %} active {% endif %}">
+            <a  href="/delivery-information.html" class="nav-link"><i class="material-icons">bubble_chart</i> Deliveries informations</a>
+        </li>
+          </ul>
+          </li>
+          <li class="nav-item active ">
+            <a class="nav-link "  href="#homeSubmenu" data-toggle="collapse" aria-expanded="true" >
+              <i class="material-icons">batch_prediction</i>
+              <div class="row">
+              <p>Prediction</p> <span> <i class="material-icons" style="margin-left: 150%">expand_more</i> </span>
+            </div>
+              
             </a>
+            <ul class="  list-unstyled nav-link nav-second-level" id="homeSubmenu">
+              <li class="nav-item {% if 'quantityprediction' in segment %} active {% endif %}">
+                  <a  href="{% url 'quantityprediction' %}" class="nav-link"><i class="material-icons">inventory_2</i> Quantity sold</a>
+              </li>
+              <li class="nav-item {% if 'opinionanalysis' in segment %} active {% endif %}">
+                <a  href="/opinionanalysis.html" class="nav-link"><i class="material-icons">3p</i> opinion analysis</a>
+            </li>
+            <li class="nav-item {% if 'shippingmethod' in segment %} active {% endif %}">
+              <a  href="{% url 'shippingmethod' %}" class="nav-link"><i class="material-icons">local_shipping</i>Shipping method</a>
           </li>
-          <li class="nav-item {% if 'ui-tables' in segment %} active {% endif %}">
-            <a class="nav-link" href="/ui-tables.html">
-              <i class="material-icons">content_paste</i>
-              <p>Table List</p>
-            </a>
+          <li class="nav-item {% if 'sentimentanalysis' in segment %} active {% endif %}">
+            <a  href="/sentimentanalysis.html" class="nav-link"><i class="material-icons">face_retouching_natural</i> Sentiment analysis</a>
+        </li>
+        <li class="nav-item {% if 'recomendationsystem.html' in segment %} active {% endif %}">
+          <a href="/recomendationsystem.html" class="nav-link"><i class="material-icons">recommend</i> Recommendation system</a>
+      </li>
+          </ul>
           </li>
-          <li class="nav-item {% if 'ui-typography' in segment %} active {% endif %}">
-            <a class="nav-link" href="/ui-typography.html">
-              <i class="material-icons">library_books</i>
-              <p>Typography</p>
-            </a>
-          </li>
-          <li class="nav-item {% if 'ui-icons' in segment %} active {% endif %}">
-            <a class="nav-link" href="/ui-icons.html">
-              <i class="material-icons">bubble_chart</i>
-              <p>Icons</p>
-            </a>
-          </li>
-          <li class="nav-item {% if 'ui-maps' in segment %} active {% endif %}">
-            <a class="nav-link" href="/ui-maps.html">
-              <i class="material-icons">location_ons</i>
-              <p>Maps</p>
-            </a>
-          </li>
-          <li class="nav-item {% if 'ui-notifications' in segment %} active {% endif %}">
-            <a class="nav-link" href="/ui-notifications.html">
-              <i class="material-icons">notifications</i>
-              <p>Notifications</p>
-            </a>
-          </li>
-          
-          <li class="nav-item ">
-            <a class="nav-link" href="/page-rtl-support.html">
-              <i class="material-icons">language</i>
-              <p>RTL Support</p>
-            </a>
-          </li>
+         
+         
 
-          <li class="nav-item ">
+       
+
+          <li class="nav-item " style="position: relative; bottom: 0; " >
             <a class="nav-link" href="{% url 'logout' %}" >
-              <i class="material-icons">directions_run</i>
+               <i class="material-icons">directions_run</i>
               <p>Logout</p>
-            </a>
-          </li>
-
-          <li class="nav-item active-pro ">
-            <a class="nav-link" 
-               target="_blank" rel="noopener noreferrer"  
-               href="https://appseed.us/admin-dashboards/django-dashboard-material-pro">
-              <i class="material-icons">unarchive</i>
-              <p>PRO Version</p>
             </a>
           </li>
 

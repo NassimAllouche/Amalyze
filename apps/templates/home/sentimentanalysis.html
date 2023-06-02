@@ -1,0 +1,165 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Sentiment analysis {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style>
+
+input[type="text"] {
+  width: 100%;
+  padding: 15px 10px;
+  border: none;
+  border-bottom: 1px solid #645979;
+  outline: none;
+  border-radius: 5px 5px 0 0;
+  background-color: #ffffff;
+  font-size: 16px;
+}
+ul {
+  list-style: none;
+}
+.list {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 0 0 5px 5px;
+}
+.list-items {
+  padding: 10px 5px;
+}
+.list-items:hover {
+  background-color: #dddddd;
+}
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row"  style=" display: flex;
+justify-content: center;
+align-items: center;">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header card-header-primary" style="background: orange;">
+        <h4 class="card-title">Prediction </h4>
+        <p class="card-category">Sentiment analysis</p>
+      </div>
+      <div class="card-body">
+   
+        <form id="recommendation-form" autocomplete="off">
+          <div>
+            <label for="input">Text</label>
+            <input type="text" id="input" placeholder="Type a text here..." required />
+          </div>
+          <ul class="list"></ul>
+          <button type="submit" class="btn btn-primary pull-right" style="background-color: orange; box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4); color: white;">Predict</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card card-profile">
+   
+    <div class="card-body">
+    <h6 class="card-category text-gray">
+    Prediction result 
+    </h6>
+    <h4 class="card-title">
+    </h4>
+    <div id="img">
+
+    </div>
+    <a href="#pablo" class="btn btn-primary btn-round"style="background-color: orange; box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4); color: white;" id="clear-button">Clear</a>
+    </div>
+    </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <!--  Google Maps Plugin    -->
+  
+
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initGoogleMaps();
+
+    });
+  </script>
+ 
+  <script>
+    $(document).ready(function() {
+  $.ajaxSetup({
+    headers: {
+      'X-CSRFToken': '{{ csrf_token }}'
+    }
+  });
+
+});
+    $('#recommendation-form').submit(function(event) {
+    event.preventDefault();
+    $('#img').val();
+    var ulElement = $('#my-list');
+    var titre = $('#input').val();
+    $.ajax({
+        type: 'POST',
+        url: '/sentimentanalysis/',
+       
+        data: {'titre': titre},
+        success: function(data) {
+          $('#my-list').empty();
+    $('#img').empty();
+          if (data.emotion == 'sadness'){
+            var image = document.createElement("img");
+            image.src = "/static/about_us/assets/img/sadd.png";
+            var div = document.getElementById("img");
+            div.appendChild(image);
+           
+          };
+          if (data.emotion == 'joy'){
+            var image = document.createElement("img");
+            image.src = "/static/about_us/assets/img/joy.png";
+            var div = document.getElementById("img");
+            div.appendChild(image);
+           
+          };
+          if (data.emotion == 'neutral'){
+            var image = document.createElement("img");
+            image.src = "/static/about_us/assets/img/neutre.png";
+            var div = document.getElementById("img");
+            div.appendChild(image);
+           
+          };
+          if (data.emotion == 'surprise'){
+            var image = document.createElement("img");
+            image.src = "/static/about_us/assets/img/suprise.png";
+            var div = document.getElementById("img");
+            div.appendChild(image);
+           
+          };
+          if (data.emotion == 'anger'){
+            var image = document.createElement("img");
+            image.src = "/static/about_us/assets/img/angry.png";
+            var div = document.getElementById("img");
+            div.appendChild(image);
+           
+          };
+       
+        }
+    });
+});
+$(document).ready(function() {
+  $('#clear-button').click(function() {
+    $('#my-list').empty();
+  });
+});
+
+ 
+
+  </script>
+{% endblock javascripts %}

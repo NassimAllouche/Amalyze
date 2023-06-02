@@ -1,0 +1,328 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Shipping method {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style>
+
+input[type="text"] {
+  width: 100%;
+  padding: 15px 10px;
+  border: none;
+  border-bottom: 1px solid #645979;
+  outline: none;
+  border-radius: 5px 5px 0 0;
+  background-color: #ffffff;
+  font-size: 16px;
+}
+ul {
+  list-style: none;
+}
+.list {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 0 0 5px 5px;
+}
+.list-items {
+  padding: 10px 5px;
+}
+.list-items:hover {
+  background-color: #dddddd;
+}
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row"  style=" display: flex;
+justify-content: center;
+align-items: center;">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header card-header-primary" style="background: orange;">
+        <h4 class="card-title">Prediction </h4>
+        <p class="card-category">Shipping method</p>
+      </div>
+      <div class="card-body">
+       
+        <table id="myTable" hidden>
+
+      
+        {% for d in category.Category %}
+        <tr>
+          <td>{{ d }}</td>
+        </tr>
+       
+      {% endfor %}
+    </table>
+    <table id="myTable1" hidden >
+
+      
+      {% for d in courierstatus  %}
+      <tr>
+        <td>{{ d }}</td>
+      </tr>
+     
+    {% endfor %}
+  </table>
+        <form id="recommendation-form" autocomplete="off">
+          <div>
+            <label for="input">Category</label>
+            <input type="text" id="input" placeholder="Type a category here..." required/>
+          </div>
+          <ul class="list"></ul><br>
+          <div>
+            <label for="inputt">Courier status</label>
+            <input type="text" id="inputt" placeholder="Type a Courier Status here..." required />
+          </div>
+          <ul class="listt"></ul>
+          <br>
+          <div>
+            <label for="quantity">Quantity</label>
+            <input type="text" id="quantity" placeholder="Type a Courier Status here..." required />
+          </div><br>
+          <div>
+            <label for="amount">Amount</label>
+            <input type="text" id="amount" placeholder="Type a Courier Status here..." required/>
+          </div>
+          
+          <button type="submit" class="btn btn-primary pull-right" style="background-color: orange; box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4); color: white;">Predict</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card card-profile">
+   
+    <div class="card-body">
+    <h6 class="card-category text-gray">
+    Prediction result 
+    </h6>
+    <h4 class="card-title">
+    </h4>
+    <div id="img"></div>
+    <ul id="my-list"></ul>
+    <a href="#pablo" class="btn btn-primary btn-round"style="background-color: orange; box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4); color: white;" id="clear-button">Clear</a>
+    </div>
+    </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <!--  Google Maps Plugin    -->
+  
+
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initGoogleMaps();
+      console.log("{{ courierstatus }}")
+
+    });
+  </script>
+ 
+  <script>
+    $(document).ready(function() {
+  $.ajaxSetup({
+    headers: {
+      'X-CSRFToken': '{{ csrf_token }}'
+    }
+  });
+
+});
+    $('#recommendation-form').submit(function(event) {
+    event.preventDefault();
+   var qty = $('#quantity').val();
+   var amount = $('#amount').val();
+   var category = 0 ;
+    var courierstatus = 0;
+    if ($('#inputt').val() == 'Shipped'){
+      courierstatus = 1;
+    }
+
+    if ($('#inputt').val() == 'Unshipped'){
+      courierstatus = 2;
+    }
+    if ($('#input').val() == 'Bottom'){
+      category = 1;
+    }
+    if ($('#input').val() == 'Dupatta'){
+      category = 2;
+    }
+    if ($('#input').val() == 'Ethnic Dress'){
+      category = 3;
+    }
+    if ($('#input').val() == 'Kurta'){
+      category = 4;
+    }
+    if ($('#input').val() == 'Kurta Set'){
+      category = 5;
+    }
+    if ($('#input').val() == 'Saree'){
+      category = 6;
+    }
+    if ($('#input').val() == 'Tops'){
+      category = 7;
+    }
+    if ($('#input').val() == 'Western Dress'){
+      category = 8;
+    }
+    $.ajax({
+        type: 'POST',
+        url: '/shippingmethodpred/',
+       
+        data: {'qty': qty,
+              'category':category,
+              'courierstatus':courierstatus,
+              'amount':amount},
+        success: function(data) {
+          $('#my-list').empty();
+    $('#img').empty();
+          console.log(data.prediction[0])
+             if (data.prediction[0] == 1){
+            var image = document.createElement("img");
+            image.src = "/static/about_us/assets/img/easyship.png";
+            var div = document.getElementById("img");
+            div.appendChild(image);
+           
+          };
+     
+            
+         
+        }
+    });
+});
+$(document).ready(function() {
+  $('#clear-button').click(function() {
+    $('#my-list').empty();
+  });
+});
+
+  // Select the table element
+ // Output the array of strings
+
+ const table = document.getElementById('myTable');
+  
+  // Initialize an empty array to store the strings
+  const names = [];
+
+  // Iterate over the table rows
+  for (let i = 0; i < table.rows.length; i++) {
+    const cell = table.rows[i].cells[0]; // Select the first (and only) cell of each row
+    const text = cell.innerText; // Extract the text from the cell
+    console.log(text);
+    names.push(text); // Add the text to the stringList array
+  }
+
+  console.log(names); 
+//Sort names in ascending order
+let sortedNames = names.sort();
+//reference
+let input = document.getElementById("input");
+//Execute function on keyup
+input.addEventListener("keyup", (e) => {
+  //loop through above array
+  //Initially remove all elements ( so if user erases a letter or adds new letter then clean previous outputs)
+  removeElements();
+  for (let i of sortedNames) {
+    //convert input to lowercase and compare with each string
+    if (
+      i.toLowerCase().startsWith(input.value.toLowerCase()) &&
+      input.value != ""
+    ) {
+      //create li element
+      let listItem = document.createElement("li");
+      //One common class name
+      listItem.classList.add("list-items");
+      listItem.style.cursor = "pointer";
+      listItem.setAttribute("onclick", "displayNames('" + i + "')");
+      //Display matched part in bold
+      let word = "<b>" + i.substr(0, input.value.length) + "</b>";
+      word += i.substr(input.value.length);
+      //display the value in array
+      listItem.innerHTML = word;
+      document.querySelector(".list").appendChild(listItem);
+    }
+  }
+});
+function displayNames(value) {
+  input.value = value;
+  removeElements();
+}
+function removeElements() {
+  //clear all the item
+  let items = document.querySelectorAll(".list-items");
+  items.forEach((item) => {
+    item.remove();
+  });
+}
+  </script>
+  <script>
+
+
+    // Select the table element
+ // Output the array of strings
+
+ const tablee = document.getElementById('myTable1');
+  
+  // Initialize an empty array to store the strings
+  const namese = [];
+
+  // Iterate over the table rows
+  for (let ie = 0; ie < tablee.rows.length; ie++) {
+    const celle = tablee.rows[ie].cells[0]; // Select the first (and only) cell of each row
+    const texte = celle.innerText; // Extract the text from the cell
+    console.log(texte);
+    namese.push(texte); // Add the text to the stringList array
+  }
+
+  console.log(namese); 
+//Sort names in ascending order
+let sortedNamese = namese.sort();
+//reference
+let inpute = document.getElementById("inputt");
+//Execute function on keyup
+inpute.addEventListener("keyup", (e) => {
+  //loop through above array
+  //Initially remove all elements ( so if user erases a letter or adds new letter then clean previous outputs)
+  removeElements();
+  for (let il of sortedNamese) {
+    //convert input to lowercase and compare with each string
+    if (
+      il.toLowerCase().startsWith(inpute.value.toLowerCase()) &&
+      inpute.value != ""
+    ) {
+      //create li element
+      let listIteme = document.createElement("li");
+      //One common class name
+      listIteme.classList.add("list-items");
+      listIteme.style.cursor = "pointer";
+      listIteme.setAttribute("onclick", "displayNamess('" + il + "')");
+      //Display matched part in bold
+      let word1 = "<b>" + il.substr(0, inpute.value.length) + "</b>";
+      word1 += il.substr(inpute.value.length);
+      //display the value in array
+      listIteme.innerHTML = word1;
+      document.querySelector(".listt").appendChild(listIteme);
+    }
+  }
+});
+function displayNamess(value1) {
+  inpute.value = value1;
+  removeElements();
+}
+function removeElements() {
+  //clear all the item
+  let itemse = document.querySelectorAll(".list-items");
+  itemse.forEach((item) => {
+    item.remove();
+  });
+}
+  </script>
+{% endblock javascripts %}
